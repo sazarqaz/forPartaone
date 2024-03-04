@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { performance } = require('perf_hooks');
 
 function readNumbersFromFile(filename) {
     const data = fs.readFileSync(filename, 'utf8');
@@ -87,14 +88,20 @@ function findDecreasingSequence(numbers) {
 
 function main() {
     const filename = 'C:/Users/kyi/Desktop/JavaScript/10m.txt'; //вкажіть свій шлях до файлу з числами
-    const numbers = readNumbersFromFile(filename);
 
+    const start = performance.now();
+    const numbers = readNumbersFromFile(filename);
+    
     console.log('Максимальне число:', findMax(numbers));
     console.log('Мінімальне число:', findMin(numbers));
     console.log('Медіана:', findMedian(numbers));
     console.log('Середнє арифметичне значення:', findMean(numbers));
     console.log('Найбільша послідовність, яка зібльшується:', findIncreasingSequence(numbers));
     console.log('Найбільша послідовність, яка зменшується:', findDecreasingSequence(numbers));
+
+    const end = performance.now();
+    
+    console.log('Час виконання у секундах:', (end - start)/1000);
 }
 
 main();
